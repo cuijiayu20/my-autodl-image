@@ -1,0 +1,42 @@
+# 工作流的名称
+name: Build and Push to Aliyun ACR
+
+# 触发条件：
+# 1. 当有代码 push 到 "main" 分支时
+# 2. 允许在 GitHub Actions 页面手动点击 "Run workflow"
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+# 任务
+jobs:
+  build-and-push:
+    # 使用 GitHub 提供的最新 Ubuntu 虚拟机
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. 下载您的代码 (包含 Dockerfile) 到虚拟机
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # 2. 登录到您的阿里云 ACR
+      #    它会使用您之前在 GitHub Secrets 中设置的 ACR_USERNAME 和 ACR_PASSWORD
+      - name: Log in to Aliyun ACR
+        uses: docker/login-action@v3
+        with:
+          registry: registry.cn-hangzhou.aliyuncs.com
+          username: ${{ secrets.ACR_USERNAME }}
+          password: ${{ secrets.ACR_PASSWORD }}
+
+      # 3. (核心) 构建并推送 Docker 镜像
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .           # Dockerfile 所在的路径 (当前目录)
+          push: true           # 确认要推送
+          
+          # 【【【！！！重要！！！】】】
+          # 请把下面这行里的 "doct20" 换成您自己的阿里云命名空间！
+          # 
+          tags: registry.cn-hangzhou.aliyuncs.com/doct20/pytorch:1.10.1-cuda11.3
