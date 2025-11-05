@@ -29,9 +29,10 @@ RUN mkdir -p /var/run/sshd && \
     mv /etc/ssh/ssh_config.new /etc/ssh/ssh_config
 
 # 4. 【来自您】设置语言和时区 (推荐)
-RUN export DEBIAN_FRONTEND=noninteractive && \
-    locale-gen zh_CN zh_CN.GB18030 zh_CN.GBK zh_CN.UTF-8 en_US.UTF-8 && \
-    update-locale && \
+RUN sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen && \
+    sed -i -e 's/# zh_CN.UTF-8 UTF-8/zh_CN.UTF-8 UTF-8/' /etc/locale.gen && \
+    locale-gen && \
+    update-locale LANG=en_US.UTF-8 && \
     echo "LANG=en_US.UTF-8" >> /etc/profile && \
     echo "LANGUAGE=en_US:en" >> /etc/profile && \
     echo "LC_ALL=en_US.UTF-8" >> /etc/profile && \
