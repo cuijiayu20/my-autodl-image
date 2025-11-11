@@ -3,7 +3,7 @@
 # (基于您的v3版本，添加了 TensorBoard)
 # ------------------------------------------------------------------
 
-# 1. 从 NVIDIA 官方 CUDA 11.3 + cuDNN 8 开发镜像开始
+# 1. 从 NVIDIA 官方 CUDA 11.3 + cuDNN 8 开发镜像开始1
 # (已包含完整的 nvcc 编译器)
 FROM nvidia/cuda:11.3.1-cudnn8-devel-ubuntu20.04
 
