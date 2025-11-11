@@ -31,4 +31,4 @@ jobs:
           # 【【已修改！】】 
           # 1. 使用您找到的个人版地址
           # 2. 确保 "doct20" 是您在阿里云上正确的“命名空间”
-          tags: crpi-eiy74iz57sns0xzr.cn-hangzhou.personal.cr.aliyuncs.com/doct20/pytorch:1.10.1-cuda11.3
+          tags: crpi-eiy74iz57sns0xzr.cn-hangzhou.personal.cr.aliyuncs.com/doct21/pytorch:1.10.1-cuda11.3
