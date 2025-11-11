@@ -17,8 +17,9 @@ jobs:
       - name: Log in to Aliyun ACR
         uses: docker/login-action@v3
         with:
-          # 【【已修改！】】 使用您找到的个人版地址
+          # 个人版ACR的 registry 地址
           registry: crpi-eiy74iz57sns0xzr.cn-hangzhou.personal.cr.aliyuncs.com
+          # 确保您已在 GitHub Secrets 中设置了这两个值
           username: ${{ secrets.ACR_USERNAME }}
           password: ${{ secrets.ACR_PASSWORD }}
 
@@ -28,7 +29,9 @@ jobs:
         with:
           context: .
           push: true
-          # 【【已修改！】】 
-          # 1. 使用您找到的个人版地址
-          # 2. 确保 "doct20" 是您在阿里云上正确的“命名空间”
-          tags: crpi-eiy74iz57sns0xzr.cn-hangzhou.personal.cr.aliyuncs.com/doct21/pytorch:1.10.1-cuda11.3
+          # 【【【 已修改！】】】
+          # 使用 `tags: |` 来允许多行
+          # 这样会同时推送“详细标签”和“latest”标签
+          tags: |
+            crpi-eiy74iz57sns0xzr.cn-hangzhou.personal.cr.aliyuncs.com/doct21/pytorch:cuda11.3-cudnn8-devel-ubuntu20.04-py38-torch1.10.1
+            crpi-eiy74iz57sns0xzr.cn-hangzhou.personal.cr.aliyuncs.com/doct21/pytorch:latest
